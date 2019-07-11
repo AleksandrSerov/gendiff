@@ -1,0 +1,23 @@
+{
+  "name": "frontend-project-lvl2",
+  "version": "0.0.1",
+  "description": "Description",
+  "keywords": [
+    "hexlet",
+    "frontend-project-lvl2"
+  ],
+  "license": "ISC",
+  "author": "Aleksandr Serov",
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "gendiff": "dist/bin/gendiff.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "commander": "^2.20.0"
+  }
+}
