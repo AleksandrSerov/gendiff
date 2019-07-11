@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-
-import program from "commander";
+const program = require("commander");
 
 program
   .version("0.0.1", "-v, --version")
-  .description("Compares two configuration files and shows a difference.");
+  .description("Compares two configuration files and shows a difference.")
+  .parse(process.argv);
