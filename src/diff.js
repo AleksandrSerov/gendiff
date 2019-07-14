@@ -17,6 +17,7 @@ export default (firstConfig, secondConfig) => {
       return `${acc}
       + ${key}: ${secondObj[key]}`;
     }
+
     if (secondObj[key] === undefined && firstObj[key] !== undefined) {
       return `${acc}
       - ${key}: ${firstObj[key]}`;
@@ -26,6 +27,7 @@ export default (firstConfig, secondConfig) => {
       return `${acc}
         ${key}: ${secondObj[key]}`;
     }
+
     return `${acc}
       + ${key}: ${secondObj[key]}
       - ${key}: ${firstObj[key]}`;
