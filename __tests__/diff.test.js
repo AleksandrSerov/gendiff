@@ -1,4 +1,4 @@
-import diff from '../diff';
+import diff from '../src/diff';
 
 describe('Testing diff.js', () => {
   test('Absolute paths', () => {
@@ -17,8 +17,8 @@ describe('Testing diff.js', () => {
     expect(actual).toBe(expected);
   });
   test('Relative paths', () => {
-    const firstConfig = './src/__tests__/__fixtures__/firstConfig.json';
-    const secondConfig = './src/__tests__/__fixtures__/secondConfig.json';
+    const firstConfig = './__tests__/__fixtures__/firstConfig.json';
+    const secondConfig = './__tests__/__fixtures__/secondConfig.json';
     const expected = `
     {
         host: hexlet.io
