@@ -9,4 +9,4 @@ script:
   - make lint
   - make test
 after_script:
-  - ./cc-test-reporter after-build --debug --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build -t lcov --exit-code $TRAVIS_TEST_RESULT
