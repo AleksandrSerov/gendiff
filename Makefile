@@ -5,7 +5,7 @@ publish:
 watch:
 	npm run test -- --watch
 test:
-	npm run test
+	npm run test -- --coverage
 lint:
 	npx eslint .
 start:
