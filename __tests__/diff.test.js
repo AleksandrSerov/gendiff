@@ -16,6 +16,7 @@ describe('Testing diff.js', () => {
     const actual = diff(firstConfig, secondConfig);
     expect(actual).toBe(expected);
   });
+
   test('Relative paths json', () => {
     const firstConfig = './__tests__/__fixtures__/firstConfig.json';
     const secondConfig = './__tests__/__fixtures__/secondConfig.json';
@@ -31,6 +32,7 @@ describe('Testing diff.js', () => {
     const actual = diff(firstConfig, secondConfig);
     expect(actual).toBe(expected);
   });
+
   test('Absolute paths yml', () => {
     const firstConfig = `${__dirname}/__fixtures__/firstConfig.yml`;
     const secondConfig = `${__dirname}/__fixtures__/secondConfig.yml`;
@@ -46,6 +48,7 @@ describe('Testing diff.js', () => {
     const actual = diff(firstConfig, secondConfig);
     expect(actual).toBe(expected);
   });
+
   test('Relative paths yml', () => {
     const firstConfig = './__tests__/__fixtures__/firstConfig.yml';
     const secondConfig = './__tests__/__fixtures__/secondConfig.yml';
