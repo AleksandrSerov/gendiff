@@ -1,29 +1,9 @@
-import fs from 'fs';
-import path from 'path';
 import _ from 'lodash';
-import JSONParser from './parsers/jsonParser';
-import YMLParser from './parsers/ymlParser';
-
-const parse = {
-  '.json': obj => JSONParser(obj),
-  '.yml': obj => YMLParser(obj),
-};
+import parse from './parsers';
 
 export default (firstConfig, secondConfig) => {
-  const firstFile = path.resolve(firstConfig);
-  const firstObj = fs.readFileSync(firstFile, 'utf8');
-  const firstFileExt = path.extname(firstFile);
-
-  const secondFile = path.resolve(secondConfig);
-  const secondObj = fs.readFileSync(secondFile, 'utf8');
-  const secondFileExt = path.extname(secondFile);
-  const extension = firstFileExt === secondFileExt ? secondFileExt : null;
-  if (!extension) {
-    return 'Not one format';
-  }
-
-  const firstParsedObj = parse[extension](firstObj);
-  const secondParsedObj = parse[extension](secondObj);
+  const firstParsedObj = parse(firstConfig);
+  const secondParsedObj = parse(secondConfig);
 
   const allKeys = [
     ...new Set([
