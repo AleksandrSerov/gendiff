@@ -4,9 +4,9 @@ import path from 'path';
 import ini from 'ini';
 
 const parse = {
-  '.json': (config) => JSON.parse(config),
-  '.yml': (config) => yaml.safeLoad(config),
-  '.ini': (config) => ini.parse(config),
+  '.json': (obj) => JSON.parse(obj),
+  '.yml': (obj) => yaml.safeLoad(obj),
+  '.ini': (obj) => ini.parse(obj),
 };
 
 export default (config) => {
