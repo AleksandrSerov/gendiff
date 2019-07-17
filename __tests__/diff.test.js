@@ -10,36 +10,30 @@ describe('Testing diff.js', () => {
       - follow: false
       + verbose: true
     }`;
+  const firstConfigAbsolutePath = `${__dirname}/__fixtures__/firstConfig`;
+  const secondConfigAbsolutePath = `${__dirname}/__fixtures__/secondConfig`;
 
-  test('Absolute paths json', () => {
-    const firstConfig = `${__dirname}/__fixtures__/firstConfig.json`;
-    const secondConfig = `${__dirname}/__fixtures__/secondConfig.json`;
+  const firstConfigRelativePath = './__tests__/__fixtures__/firstConfig';
+  const secondConfigRelativePath = './__tests__/__fixtures__/secondConfig';
+
+  const extNames = ['.json', '.yml', '.ini'];
+  test.each(extNames)('Test diff absolute paths %s', (extName) => {
     const expected = resultConfig;
-    const actual = diff(firstConfig, secondConfig);
+    const actual = diff(
+      `${firstConfigAbsolutePath}${extName}`,
+      `${secondConfigAbsolutePath}${extName}`,
+    );
+
     expect(actual).toBe(expected);
   });
 
-  test('Relative paths json', () => {
-    const firstConfig = './__tests__/__fixtures__/firstConfig.json';
-    const secondConfig = './__tests__/__fixtures__/secondConfig.json';
+  test.each(extNames)('Test diff relative paths %s', (extName) => {
     const expected = resultConfig;
-    const actual = diff(firstConfig, secondConfig);
-    expect(actual).toBe(expected);
-  });
+    const actual = diff(
+      `${firstConfigRelativePath}${extName}`,
+      `${secondConfigRelativePath}${extName}`,
+    );
 
-  test('Absolute paths yml', () => {
-    const firstConfig = `${__dirname}/__fixtures__/firstConfig.yml`;
-    const secondConfig = `${__dirname}/__fixtures__/secondConfig.yml`;
-    const expected = resultConfig;
-    const actual = diff(firstConfig, secondConfig);
-    expect(actual).toBe(expected);
-  });
-
-  test('Relative paths yml', () => {
-    const firstConfig = './__tests__/__fixtures__/firstConfig.yml';
-    const secondConfig = './__tests__/__fixtures__/secondConfig.yml';
-    const expected = resultConfig;
-    const actual = diff(firstConfig, secondConfig);
     expect(actual).toBe(expected);
   });
 });
