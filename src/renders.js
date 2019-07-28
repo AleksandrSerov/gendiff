@@ -2,28 +2,44 @@ import _ from 'lodash';
 
 const baseSpaceSize = ' '.repeat(2);
 
-const renderKey = (key, obj) => {
-  const actions = {
-    added: () => `${baseSpaceSize}+ ${key}: ${obj.value}`,
-    removed: () => `${baseSpaceSize}- ${key}: ${obj.value}`,
-    notChanged: () => `${baseSpaceSize.repeat(2)}${key}: ${obj.value}`,
-    changed: () =>
-      `${baseSpaceSize}+ ${key}: ${obj.currentValue}
-${baseSpaceSize}- ${key}: ${obj.prevValue}`,
-  };
-  return actions[obj.type](key);
+const renderValue = (value, space) => {
+  if (!(value instanceof Object)) {
+    return value;
+  }
+  const keys = _.keys(value).sort();
+  const res = keys.reduce(
+    (acc, key) => `${acc}
+  ${space}${baseSpaceSize.repeat(2)}${key}: ${value[key]}`,
+    '',
+  );
+  return `{${res}
+  ${space}}`;
 };
 
-const render = (ast) => {
-  const keys = _.keys(ast);
+const render = (ast, curSpace = '') => {
+  const keys = _.keys(ast).sort();
+  const space = `${curSpace}${baseSpaceSize.repeat(2)}`;
+
+  const actions = {
+    added: (key, { value }) => `+ ${key}: ${renderValue(value, space)}`,
+    removed: (key, { value }) => `- ${key}: ${renderValue(value, space)}`,
+    notChanged: (key, { value }) =>
+      `${baseSpaceSize}${key}: ${renderValue(value, space)}`,
+    children: (key, { value }) => {
+      return `${key}: ${render(value, space)}`;
+    },
+    changed: (key, { currentValue, prevValue }) =>
+      `- ${key}: ${renderValue(prevValue, space)}
+      ${baseSpaceSize}+ ${key}: ${renderValue(currentValue, space)}`,
+  };
 
   const res = keys.reduce(
     (acc, key) => `${acc}
-${renderKey(key, ast[key])}`,
-    `{`,
+${space}${actions[ast[key].type](key, ast[key])}`,
+    '',
   );
-  return `${res}
-}`;
+  return `{${res}
+${curSpace}}`;
 };
 
 export default render;

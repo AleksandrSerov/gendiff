@@ -17,8 +17,12 @@ const makeAST = (obj1, obj2) => {
       check: (key) => _.isEqual(obj1[key], obj2[key]),
     },
     {
-      action: (key) => makeAST(obj1[key], obj2[key]),
-      check: (key) => obj2[key] instanceof Object,
+      action: (key) => ({
+        type: 'children',
+        value: makeAST(obj1[key], obj2[key]),
+      }),
+      check: (key) =>
+        obj1[key] instanceof Object && obj2[key] instanceof Object,
     },
     {
       action: (key) => ({
