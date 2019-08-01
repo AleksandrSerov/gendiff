@@ -11,13 +11,12 @@ const customStringify = (value, depth) => {
   if (!(value instanceof Object)) {
     return `${value}`;
   }
-  const res = _.keys(value)
-  .reduce((acc, key) => {
+  const content = _.keys(value).reduce((acc, key) => {
     const string = makeString(depth + 4, ' ', key, value[key]);
     return `${acc}${newLine}${string}`;
   }, '');
 
-  return `{${res}${newLine}${tab.repeat(depth + 2)}}`;
+  return `{${content}${newLine}${tab.repeat(depth + 2)}}`;
 };
 
 const actions = {
