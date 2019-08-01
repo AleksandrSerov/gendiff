@@ -1,45 +1,59 @@
 import _ from 'lodash';
 
-const baseSpaceSize = ' '.repeat(2);
+const tab = ' ';
+const newLine = '\n';
 
-const renderValue = (value, space) => {
-  if (!(value instanceof Object)) {
-    return value;
-  }
-  const keys = _.keys(value).sort();
-  const res = keys.reduce(
-    (acc, key) => `${acc}
-  ${space}${baseSpaceSize.repeat(2)}${key}: ${value[key]}`,
-    '',
-  );
-  return `{${res}
-  ${space}}`;
+const makeString = (depth, prefix, name, data) => {
+  return `${tab.repeat(depth)}${prefix} ${name}: ${data}`;
 };
 
-const render = (ast, curSpace = '') => {
-  const keys = _.keys(ast).sort();
-  const space = `${curSpace}${baseSpaceSize.repeat(2)}`;
+const customStringify = (value, depth) => {
+  if (!(value instanceof Object)) {
+    return `${value}`;
+  }
+  const res = _.keys(value)
+    .sort()
+    .reduce((acc, key) => {
+      const string = makeString(depth + 4, ' ', key, value[key]);
+      return `${acc}${newLine}${string}`;
+    }, '');
 
-  const actions = {
-    added: (key, { value }) => `+ ${key}: ${renderValue(value, space)}`,
-    removed: (key, { value }) => `- ${key}: ${renderValue(value, space)}`,
-    notChanged: (key, { value }) =>
-      `${baseSpaceSize}${key}: ${renderValue(value, space)}`,
-    children: (key, { value }) => {
-      return `${key}: ${render(value, space)}`;
-    },
-    changed: (key, { currentValue, prevValue }) =>
-      `- ${key}: ${renderValue(prevValue, space)}
-      ${baseSpaceSize}+ ${key}: ${renderValue(currentValue, space)}`,
-  };
+  return `{${res}${newLine}${tab.repeat(depth + 2)}}`;
+};
 
-  const res = keys.reduce(
-    (acc, key) => `${acc}
-${space}${actions[ast[key].type](key, ast[key])}`,
-    '',
-  );
-  return `{${res}
-${curSpace}}`;
+const actions = {
+  added: ({ name, value }, depth) =>
+    makeString(depth, '+', name, customStringify(value, depth)),
+  removed: ({ name, value }, depth) =>
+    makeString(depth, '-', name, customStringify(value, depth)),
+  notChanged: ({ name, value }, depth) =>
+    makeString(depth, ' ', name, customStringify(value, depth)),
+  changed: ({ name, currentValue, prevValue }, depth) =>
+    `${makeString(
+      depth,
+      '-',
+      name,
+      customStringify(prevValue, depth),
+    )}${newLine}${makeString(
+      depth,
+      '+',
+      name,
+      customStringify(currentValue, depth),
+    )}`,
+  children: ({ name, value }, depth, render) =>
+    makeString(depth, ' ', name, render(value, depth + 4)),
+};
+
+const render = (ast, depth = 2) => {
+  const indent = tab.repeat(depth === 2 ? 0 : depth - 2);
+
+  const content = ast.reduce((acc, node) => {
+    const string = actions[node.type](node, depth, render);
+
+    return `${acc}${newLine}${string}`;
+  }, '');
+
+  return `{${content}${newLine}${indent}}`;
 };
 
 export default render;
