@@ -19,7 +19,7 @@ describe('Testing diff.js', () => {
   const flatExpectedPath = `${__dirname}/__fixtures__/flat/expected`;
   const nestedExpectedPath = `${__dirname}/__fixtures__/nested/expected`;
 
-  xtest.each(extNames)('Test flat diff absolute paths %s', (extName) => {
+  test.each(extNames)('Test flat diff absolute paths %s', (extName) => {
     const expected = fs.readFileSync(flatExpectedPath, 'utf-8');
     const actual = diff(
       `${firstConfigAbsolutePath}${extName}`,
@@ -29,7 +29,7 @@ describe('Testing diff.js', () => {
     expect(actual).toBe(expected);
   });
 
-  xtest.each(extNames)('Test flat diff relative paths %s', (extName) => {
+  test.each(extNames)('Test flat diff relative paths %s', (extName) => {
     const expected = fs.readFileSync(flatExpectedPath, 'utf-8');
     const actual = diff(
       `${firstConfigRelativePath}${extName}`,
