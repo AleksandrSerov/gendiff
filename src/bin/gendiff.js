@@ -8,6 +8,6 @@ program
   .option('-f, --format [type]', 'Output format')
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig) => {
-    console.log(diff(firstConfig, secondConfig));
+    console.log(diff(firstConfig, secondConfig, program.format));
   })
   .parse(process.argv);
