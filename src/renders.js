@@ -8,7 +8,7 @@ const makeString = (depth, prefix, name, data) => {
 };
 
 const customStringify = (value, depth) => {
-  if (!(value instanceof Object)) {
+  if (!_.isObject(value)) {
     return `${value}`;
   }
   const content = _.keys(value).reduce((acc, key) => {
