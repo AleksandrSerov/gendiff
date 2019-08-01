@@ -8,17 +8,20 @@ const makeString = (depth, prefix, name, data) => {
 };
 
 const customStringify = (value, depth) => {
-  if (!(value instanceof Object)) {
-    return `${value}`;
+  if (!_.isObject(value)) {
+    return value;
   }
-  const res = _.keys(value)
-    .sort()
-    .reduce((acc, key) => {
-      const string = makeString(depth + 4, ' ', key, value[key]);
-      return `${acc}${newLine}${string}`;
-    }, '');
+  const content = _.keys(value).reduce((acc, key) => {
+    const string = makeString(
+      depth + 4,
+      ' ',
+      key,
+      customStringify(value[key], depth),
+    );
+    return `${acc}${newLine}${string}`;
+  }, '');
 
-  return `{${res}${newLine}${tab.repeat(depth + 2)}}`;
+  return `{${content}${newLine}${tab.repeat(depth + 2)}}`;
 };
 
 const actions = {
