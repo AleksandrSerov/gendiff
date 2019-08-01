@@ -65,6 +65,31 @@ describe('Testing diff.js', () => {
 
       expect(actual).toBe(expected);
     });
+
+    test.each(extNames)('json && absolute paths %s ', (extName) => {
+      const path = `${__dirname}/__fixtures__/flat/expected/json`;
+      const expected = fs.readFileSync(path, 'utf-8');
+
+      const actual = diff(
+        `${firstFlatConfigAbsolutePath}${extName}`,
+        `${secondFlatConfigAbsolutePath}${extName}`,
+        'json',
+      );
+
+      expect(JSON.parse(actual)).toEqual(JSON.parse(expected));
+    });
+
+    test.each(extNames)('json && relative paths %s', (extName) => {
+      const path = `${__dirname}/__fixtures__/flat/expected/json`;
+      const expected = fs.readFileSync(path, 'utf-8');
+      const actual = diff(
+        `${firstConfigRelativePath}${extName}`,
+        `${secondConfigRelativePath}${extName}`,
+        'json',
+      );
+
+      expect(JSON.parse(actual)).toEqual(JSON.parse(expected));
+    });
   });
 
   describe('Nested configs', () => {
@@ -118,6 +143,32 @@ describe('Testing diff.js', () => {
       );
 
       expect(actual).toBe(expected);
+    });
+
+    test.each(extNames)('json && relative paths %s', (extName) => {
+      const path = `${__dirname}/__fixtures__/nested/expected/json`;
+      const expected = fs.readFileSync(path, 'utf-8');
+
+      const actual = diff(
+        `${firstNestedConfigRelativePath}${extName}`,
+        `${secondNestedConfigRelativePath}${extName}`,
+        'json',
+      );
+
+      expect(JSON.parse(actual)).toEqual(JSON.parse(expected));
+    });
+
+    test.each(extNames)('json && absolute paths %s', (extName) => {
+      const path = `${__dirname}/__fixtures__/nested/expected/json`;
+
+      const expected = fs.readFileSync(path, 'utf-8');
+      const actual = diff(
+        `${firstNestedConfigAbsulutePath}${extName}`,
+        `${secondNestedConfigAbsulutePath}${extName}`,
+        'json',
+      );
+
+      expect(JSON.parse(actual)).toEqual(JSON.parse(expected));
     });
   });
 });
