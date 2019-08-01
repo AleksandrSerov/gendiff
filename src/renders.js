@@ -9,7 +9,7 @@ const makeString = (depth, prefix, name, data) => {
 
 const customStringify = (value, depth) => {
   if (!_.isObject(value)) {
-    return `${value}`;
+    return value;
   }
   const content = _.keys(value).reduce((acc, key) => {
     const string = makeString(depth + 4, ' ', key, value[key]);
