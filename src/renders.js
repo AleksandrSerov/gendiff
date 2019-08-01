@@ -12,7 +12,12 @@ const customStringify = (value, depth) => {
     return value;
   }
   const content = _.keys(value).reduce((acc, key) => {
-    const string = makeString(depth + 4, ' ', key, value[key]);
+    const string = makeString(
+      depth + 4,
+      ' ',
+      key,
+      customStringify(value[key], depth),
+    );
     return `${acc}${newLine}${string}`;
   }, '');
 
