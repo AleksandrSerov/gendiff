@@ -12,11 +12,10 @@ const customStringify = (value, depth) => {
     return `${value}`;
   }
   const res = _.keys(value)
-    .sort()
-    .reduce((acc, key) => {
-      const string = makeString(depth + 4, ' ', key, value[key]);
-      return `${acc}${newLine}${string}`;
-    }, '');
+  .reduce((acc, key) => {
+    const string = makeString(depth + 4, ' ', key, value[key]);
+    return `${acc}${newLine}${string}`;
+  }, '');
 
   return `{${res}${newLine}${tab.repeat(depth + 2)}}`;
 };
