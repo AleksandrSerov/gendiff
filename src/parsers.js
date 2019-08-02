@@ -1,12 +1,13 @@
-import yaml from 'js-yaml';
+import { safeLoad } from 'js-yaml';
 import fs from 'fs';
 import path from 'path';
 import ini from 'ini';
 
 const parse = {
-  '.json': (obj) => JSON.parse(obj),
-  '.yml': (obj) => yaml.safeLoad(obj),
-  '.ini': (obj) => ini.parse(obj),
+  '.json': JSON.parse,
+  '.yml': safeLoad,
+  '.yaml': safeLoad,
+  '.ini': ini.parse,
 };
 
 export default (config) => {
