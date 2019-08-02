@@ -1,25 +1,21 @@
 import _ from 'lodash';
 
-const tab = ' ';
-const newLine = '\n';
+const [tab, newLine] = [' ', '\n'];
 
 const makeString = (depth, prefix, name, data) => {
   return `${tab.repeat(depth)}${prefix} ${name}: ${data}`;
 };
 
 const customStringify = (value, depth) => {
-  if (!_.isObject(value)) {
+  if (!(value instanceof Object)) {
     return value;
   }
-  const content = _.keys(value).reduce((acc, key) => {
-    const string = makeString(
-      depth + 4,
-      ' ',
-      key,
-      customStringify(value[key], depth),
-    );
-    return `${acc}${newLine}${string}`;
-  }, '');
+
+  const content = _.keys(value).reduce(
+    (acc, name) =>
+      `${acc}${newLine}${tab.repeat(depth + 6)}${name}: ${value[name]}`,
+    '',
+  );
 
   return `{${content}${newLine}${tab.repeat(depth + 2)}}`;
 };
@@ -48,13 +44,13 @@ const actions = {
 };
 
 const render = (ast, depth = 2) => {
-  const indent = tab.repeat(depth === 2 ? 0 : depth - 2);
-
   const content = ast.reduce((acc, node) => {
     const string = actions[node.type](node, depth, render);
 
     return `${acc}${newLine}${string}`;
   }, '');
+
+  const indent = tab.repeat(depth === 2 ? 0 : depth - 2);
 
   return `{${content}${newLine}${indent}}`;
 };
