@@ -29,7 +29,7 @@ const actions = {
     makeString(depth, '+', name, customStringify(value, depth)),
   removed: ({ name, value }, depth) =>
     makeString(depth, '-', name, customStringify(value, depth)),
-  notChanged: ({ name, value }, depth) =>
+  unchanged: ({ name, value }, depth) =>
     makeString(depth, ' ', name, customStringify(value, depth)),
   changed: ({ name, currentValue, prevValue }, depth) =>
     `${makeString(

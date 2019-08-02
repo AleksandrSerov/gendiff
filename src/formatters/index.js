@@ -1,11 +1,10 @@
 import pretty from './pretty';
 import plain from './plain';
-import json from './json';
 
 const formatters = {
   pretty,
   plain,
-  json,
+  json: JSON.stringify,
 };
 
 export default (format, ast) => formatters[format](ast);
