@@ -1,4 +1,4 @@
 ---
-timeout: 20
+timeout: middle
 verbose: true
 host: hexlet.io
