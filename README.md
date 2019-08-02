@@ -35,3 +35,7 @@ sudo npm link
 - `make start` - Start project
 
 ## Demo
+
+### Flat configs
+
+![Flat](demo/flat.gif)
