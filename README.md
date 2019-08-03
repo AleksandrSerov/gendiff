@@ -39,3 +39,7 @@ sudo npm link
 ### Flat configs
 
 ![Flat](demo/flat.gif)
+
+### Nested configs
+
+![Nested](demo/nested.gif)
