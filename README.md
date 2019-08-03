@@ -43,3 +43,7 @@ sudo npm link
 ### Nested configs
 
 ![Nested](demo/nested.gif)
+
+### Formats
+
+![formats](demo/formats.gif)
