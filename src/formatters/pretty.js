@@ -19,7 +19,6 @@ const customStringify = (value, depth) => {
     );
     return `${acc}${newLine}${string}`;
   }, '');
-  console.log(`{${content}${newLine}${tab.repeat(depth + 2)}}`);
   return `{${content}${newLine}${tab.repeat(depth + 2)}}`;
 };
 
@@ -58,7 +57,7 @@ const render = (ast, depth = 2) => {
   //   return `${acc}${newLine}${string}`;
   // }, '');
 
-  const indent = tab.repeat(depth === 2 ? 0 : depth - 2);
+  // const indent = tab.repeat(depth === 2 ? 0 : depth - 2);
 
   return `{${content}${newLine}${indent}}`;
 };
