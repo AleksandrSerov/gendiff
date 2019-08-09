@@ -42,22 +42,17 @@ const actions = {
       customStringify(currentValue, depth),
     )}`,
   children: ({ name, value }, depth, render) =>
-    makeString(depth, ' ', name, render(value, depth + 4)),
+    makeString(depth, ' ', name, render(value, depth + 3)),
 };
 
-const render = (ast, depth = 2) => {
-  const indent = tab.repeat(depth === 2 ? 0 : depth - 2);
-  const content = _.flattenDeep(ast).map((node) => {
-    const string = actions[node.type](node, depth, render);
-    return `${newLine}${string}`;
-  });
-  // const content = ast.reduce((acc, node) => {
-  //   const string = actions[node.type](node, depth, render);
-
-  //   return `${acc}${newLine}${string}`;
-  // }, '');
-
-  // const indent = tab.repeat(depth === 2 ? 0 : depth - 2);
+const render = (ast, depth = 1) => {
+  const indent = tab.repeat(depth === 1 ? 0 : depth - 1);
+  const content = _.flattenDeep(ast)
+    .map((node) => {
+      const string = actions[node.type](node, depth + 1, render);
+      return `${newLine}${string}`;
+    })
+    .join('');
 
   return `{${content}${newLine}${indent}}`;
 };
