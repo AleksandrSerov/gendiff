@@ -24,7 +24,7 @@ const actions = {
   added: ({ name, value }, path) =>
     `Property '${path}${name}' was added with value: ${customStringify(value)}`,
   removed: ({ name }, path) => `Property '${path}${name}' was removed`,
-  notChanged: ({ name }, path) => `Property '${path}${name}' unchanged`,
+  unchanged: ({ name }, path) => `Property '${path}${name}' unchanged`,
   changed: ({ name, currentValue, prevValue }, path) =>
     `Property '${path}${name}' was updated. From ${customStringify(
       prevValue,
