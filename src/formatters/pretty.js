@@ -2,9 +2,8 @@ import _ from 'lodash';
 
 const [tab, newLine] = [' ', '\n'];
 
-const makeString = (depth, prefix, name, data) => {
-  return `${tab.repeat(depth)}${prefix} ${name}: ${data}`;
-};
+const makeString = (depth, prefix, name, data) =>
+  `${tab.repeat(depth)}${prefix} ${name}: ${data}`;
 
 const customStringify = (value, depth) => {
   if (!(value instanceof Object)) {
@@ -53,7 +52,6 @@ const render = (ast, depth = 1) => {
       return `${newLine}${string}`;
     })
     .join('');
-
   return `{${content}${newLine}${indent}}`;
 };
 
