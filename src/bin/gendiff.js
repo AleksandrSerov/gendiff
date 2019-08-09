@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import program from 'commander';
-import diff from '../diff';
+import diff from '..';
 
 program
   .version('1.0.0')

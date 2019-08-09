@@ -1,9 +1,7 @@
-import _ from 'lodash';
-
 const newLine = '\n';
 
 const customStringify = (value) => {
-  if (_.isObject(value)) {
+  if (value instanceof Object) {
     return '[complex value]';
   }
 
@@ -12,6 +10,14 @@ const customStringify = (value) => {
   }
 
   return `'${value}'`;
+};
+
+const renderChildren = ({ name, value }, path, render) => {
+  const content = `Property '${path}${name}' was updated. From ${customStringify(
+    value,
+  )} to ${customStringify(value)}${newLine}${render(value, `${path}${name}.`)}`;
+
+  return content;
 };
 
 const actions = {
@@ -23,16 +29,7 @@ const actions = {
     `Property '${path}${name}' was updated. From ${customStringify(
       prevValue,
     )} to ${customStringify(currentValue)}`,
-  children: ({ name, value }, path, render) => {
-    const content = `Property '${path}${name}' was updated. From ${customStringify(
-      value,
-    )} to ${customStringify(value)}${newLine}${render(
-      value,
-      `${path}${name}.`,
-    )}`;
-
-    return content;
-  },
+  children: renderChildren,
 };
 
 const render = (ast, path = '') => {

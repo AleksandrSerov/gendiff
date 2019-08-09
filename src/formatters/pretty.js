@@ -1,14 +1,12 @@
 import _ from 'lodash';
 
-const tab = ' ';
-const newLine = '\n';
+const [tab, newLine] = [' ', '\n'];
 
-const makeString = (depth, prefix, name, data) => {
-  return `${tab.repeat(depth)}${prefix} ${name}: ${data}`;
-};
+const makeString = (depth, prefix, name, data) =>
+  `${tab.repeat(depth)}${prefix} ${name}: ${data}`;
 
 const customStringify = (value, depth) => {
-  if (!_.isObject(value)) {
+  if (!(value instanceof Object)) {
     return value;
   }
   const content = _.keys(value).reduce((acc, key) => {
@@ -20,7 +18,6 @@ const customStringify = (value, depth) => {
     );
     return `${acc}${newLine}${string}`;
   }, '');
-
   return `{${content}${newLine}${tab.repeat(depth + 2)}}`;
 };
 
@@ -44,18 +41,17 @@ const actions = {
       customStringify(currentValue, depth),
     )}`,
   children: ({ name, value }, depth, render) =>
-    makeString(depth, ' ', name, render(value, depth + 4)),
+    makeString(depth, ' ', name, render(value, depth + 3)),
 };
 
-const render = (ast, depth = 2) => {
-  const indent = tab.repeat(depth === 2 ? 0 : depth - 2);
-
-  const content = ast.reduce((acc, node) => {
-    const string = actions[node.type](node, depth, render);
-
-    return `${acc}${newLine}${string}`;
-  }, '');
-
+const render = (ast, depth = 1) => {
+  const indent = tab.repeat(depth === 1 ? 0 : depth - 1);
+  const content = _.flattenDeep(ast)
+    .map((node) => {
+      const string = actions[node.type](node, depth + 1, render);
+      return `${newLine}${string}`;
+    })
+    .join('');
   return `{${content}${newLine}${indent}}`;
 };
 
