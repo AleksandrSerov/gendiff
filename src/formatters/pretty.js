@@ -20,7 +20,7 @@ const customStringify = (value, depth) => {
     );
     return `${acc}${newLine}${string}`;
   }, '');
-
+  console.log(`{${content}${newLine}${tab.repeat(depth + 2)}}`);
   return `{${content}${newLine}${tab.repeat(depth + 2)}}`;
 };
 
@@ -49,12 +49,15 @@ const actions = {
 
 const render = (ast, depth = 2) => {
   const indent = tab.repeat(depth === 2 ? 0 : depth - 2);
-
-  const content = ast.reduce((acc, node) => {
+  const content = _.flattenDeep(ast).map((node) => {
     const string = actions[node.type](node, depth, render);
+    return `${newLine}${string}`;
+  });
+  // const content = ast.reduce((acc, node) => {
+  //   const string = actions[node.type](node, depth, render);
 
-    return `${acc}${newLine}${string}`;
-  }, '');
+  //   return `${acc}${newLine}${string}`;
+  // }, '');
 
   return `{${content}${newLine}${indent}}`;
 };
