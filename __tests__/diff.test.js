@@ -1,5 +1,5 @@
 import fs from 'fs';
-import diff from '../src/diff';
+import diff from '../src';
 
 describe('Testing diff.js', () => {
   const firstFlatConfigAbsolutePath = `${__dirname}/__fixtures__/flat/first`;
