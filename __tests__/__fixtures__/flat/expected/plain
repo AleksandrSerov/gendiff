@@ -1,5 +1,0 @@
-Property 'host' unchanged
-Property 'timeout' was updated. From 'small' to 'middle'
-Property 'proxy' was removed
-Property 'follow' was removed
-Property 'verbose' was added with value: true
