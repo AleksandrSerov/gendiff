@@ -9,16 +9,6 @@ describe('Testing diff.js', () => {
   const secondConfigRelativePath = './__tests__/__fixtures__/second';
 
   const extNames = ['.json', '.yml', '.ini'];
-  it('Absolute paths', () => {
-    const path = `${__dirname}/__fixtures__/expected/pretty`;
-    const expected = fs.readFileSync(path, 'utf-8');
-    const actual = diff(
-      `${firstConfigAbsulutePath}.json`,
-      `${secondConfigAbsulutePath}.json`,
-    );
-    expect(actual).toBe(expected);
-  });
-
   it('Relative paths', () => {
     const path = `${__dirname}/__fixtures__/expected/pretty`;
     const expected = fs.readFileSync(path, 'utf-8');
