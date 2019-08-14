@@ -12,9 +12,9 @@ const getData = (filepath) => {
   return parse(data);
 };
 
-export default (firstConfig, secondConfig, format = 'pretty') => {
-  const obj1 = getData(firstConfig);
-  const obj2 = getData(secondConfig);
+export default (firstConfigPath, secondConfigPath, format = 'pretty') => {
+  const obj1 = getData(firstConfigPath);
+  const obj2 = getData(secondConfigPath);
 
   const formatter = getFormatter(format);
 
