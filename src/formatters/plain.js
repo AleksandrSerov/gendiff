@@ -33,11 +33,9 @@ const actions = {
 };
 
 const render = (ast, path = '') => {
-  const content = ast.reduce((acc, node, index) => {
-    const string = actions[node.type](node, path, render);
-
-    return `${acc}${index ? newLine : ''}${string}`;
-  }, '');
+  const content = ast
+    .map((node) => actions[node.type](node, path, render))
+    .join(newLine);
 
   return content;
 };
