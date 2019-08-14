@@ -25,26 +25,18 @@ const actions = {
     makeString(depth, '-', name, customStringify(value, depth)),
   unchanged: ({ name, value }, depth) =>
     makeString(depth, ' ', name, customStringify(value, depth)),
-  changed: ({ name, currentValue, prevValue }, depth) =>
-    `${makeString(
-      depth,
-      '-',
-      name,
-      customStringify(prevValue, depth),
-    )}${newLine}${makeString(
-      depth,
-      '+',
-      name,
-      customStringify(currentValue, depth),
-    )}`,
+  changed: ({ name, currentValue, prevValue }, depth) => [
+    makeString(depth, '-', name, customStringify(prevValue, depth)),
+    makeString(depth, '+', name, customStringify(currentValue, depth)),
+  ],
   children: ({ name, value }, depth, render) =>
     makeString(depth, ' ', name, render(value, depth + 2)),
 };
 
 const render = (ast, depth = 1) => {
-  const content = _.flattenDeep(ast)
-    .map((node) => actions[node.type](node, depth, render))
-    .join(newLine);
+  const content = _.flattenDeep(
+    ast.map((node) => actions[node.type](node, depth, render)),
+  ).join(newLine);
 
   return `{${newLine}${content}${newLine}${tab(depth - 1)}}`;
 };
