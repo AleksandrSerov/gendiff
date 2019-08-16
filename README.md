@@ -5,7 +5,8 @@
 <a href="https://travis-ci.com/AleksandrSerov/frontend-project-lvl2">
 <img src="https://travis-ci.com/AleksandrSerov/frontend-project-lvl2.svg?branch=master" /></a>
 
-##Description
+## Description
+
 Utility for finding differences in configuration files.
 
 Utility features:
