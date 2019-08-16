@@ -1,9 +1,27 @@
-# Hexlet gendiff project
+# Gendiff
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a0fe078a898e94a6e560/maintainability)](https://codeclimate.com/github/AleksandrSerov/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a0fe078a898e94a6e560/test_coverage)](https://codeclimate.com/github/AleksandrSerov/frontend-project-lvl2/test_coverage)
 <a href="https://travis-ci.com/AleksandrSerov/frontend-project-lvl2">
 <img src="https://travis-ci.com/AleksandrSerov/frontend-project-lvl2.svg?branch=master" /></a>
+
+##Description
+Utility for finding differences in configuration files.
+
+Utility features:
+
+- Support for different formats(json, yml, ini)
+- Report generation as plain text, pretty and json
+
+Usage example:
+
+```bash
+$ gendiff --format plain first-config.ini second-config.ini
+Setting "common.setting2" deleted.
+Setting "common.setting4" added with value "blah blah".
+Setting "group1.baz" changed from "bas" to "bars".
+Section "group2" deleted.
+```
 
 ## Installation
 
