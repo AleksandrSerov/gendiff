@@ -25,8 +25,8 @@ Section "group2" deleted.
 ## Installation
 
 ```bash
-git clone https://github.com/AleksandrSerov/frontend-project-lvl2.git
-cd frontend-project-lvl2
+git clone https://github.com/AleksandrSerov/gendiff.git
+cd gendiff
 make install
 ```
 
