@@ -1,7 +1,7 @@
 # Gendiff
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/a0fe078a898e94a6e560/maintainability)](https://codeclimate.com/github/AleksandrSerov/frontend-project-lvl2/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a0fe078a898e94a6e560/test_coverage)](https://codeclimate.com/github/AleksandrSerov/frontend-project-lvl2/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0c8f5e67646cb02cfcd4/maintainability)](https://codeclimate.com/github/AleksandrSerov/gendiff/maintainability)
+<a href="https://codeclimate.com/github/AleksandrSerov/gendiff/test_coverage"><img src="https://api.codeclimate.com/v1/badges/0c8f5e67646cb02cfcd4/test_coverage" /></a>
 [![Build Status](https://travis-ci.org/AleksandrSerov/gendiff.svg?branch=master)](https://travis-ci.org/AleksandrSerov/gendiff)
 ## Description
 
